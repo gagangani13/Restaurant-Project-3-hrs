@@ -7,25 +7,32 @@ const OrderForm = (props) => {
   const TableRef=useRef()
   function orderFilled(e) {
     e.preventDefault()
-    const details={OrderId:OrderIdRef.current.value,Price:PriceRef.current.value,Dish:DishRef.current.value,Table:TableRef.current.value}
-    console.log(details);
-    props.onMainHome(details)
-    localStorage.setItem(details.OrderId,JSON.stringify(details))
+    if(OrderIdRef.current.value in localStorage){
+      alert('Order placed for this Id')
+    }else{
+      const details={OrderId:OrderIdRef.current.value,Price:PriceRef.current.value,Dish:DishRef.current.value,Table:TableRef.current.value}
+      props.onMainHome(details)
+      localStorage.setItem(details.OrderId,JSON.stringify(details))
+      OrderIdRef.current.value=+OrderIdRef.current.value+1
+      PriceRef.current.value=''
+      DishRef.current.value=''
+    }
+    
   }
   return (
     <div>
       <form onSubmit={orderFilled}>
         <label htmlFor='OrderId'>Unique Order Id</label>
-        <input id='OrderId' type='number' ref={OrderIdRef}/>
+        <input id='OrderId' type='number' required ref={OrderIdRef}/>
         <label htmlFor='Price'>Choose Price</label>
-        <input id='Price' type='number'  ref={PriceRef} />
+        <input id='Price' type='number' required ref={PriceRef} />
         <label htmlFor='Dish'>Choose Dish</label>
-        <input id='Dish' type='text'  ref={DishRef}/>
+        <input id='Dish' type='text' required ref={DishRef}/>
         <label htmlFor='Table'>Table</label>
         <select  ref={TableRef}>
-            <option id='table1'>Table 1</option>
-            <option id='table2'>Table 2</option>
-            <option id='table3'>Table 3</option>
+            <option>Table 1</option>
+            <option>Table 2</option>
+            <option>Table 3</option>
         </select>
         <button type='submit'>Add to List</button>
       </form>

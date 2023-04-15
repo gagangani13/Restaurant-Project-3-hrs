@@ -6,22 +6,20 @@ const MainHome = () => {
   const [oldDetails, updateDetails] = useState([]);
 
   function fromOrderForm(details) {
-    console.log(oldDetails);
     updateDetails([...oldDetails, details]);
   }
 
   function onDelete(deleteKey){
-    console.log(oldDetails)
-    const newDetails=oldDetails.map((item)=>{
+    localStorage.removeItem(deleteKey)
+    updateDetails(oldDetails.filter((item)=>{
         return item.OrderId!==deleteKey && item
-    })
-    updateDetails(newDetails)
+    }))
   }
+  
   return (
     <div>
       <OrderForm onMainHome={fromOrderForm} />
       <hr/>
-      {/* {console.log(localStorage)} */}
       Table 1<br />
       {oldDetails.map((item) => {
         return (
