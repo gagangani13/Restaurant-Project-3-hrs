@@ -1,9 +1,9 @@
 import React from 'react'
-import MainHome from './components/MainHome'
+import MainPage from './components2/MainPage'
 const App = () => {
   return (
     <div>
-      <MainHome/>
+      <MainPage/>
     </div>
   )
 }
